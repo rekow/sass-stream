@@ -21,7 +21,14 @@ while (args.length ) {
   parts = arg.split('=');
   arg = parts[0].slice(2);
   if (parts.length === 2) {
-    compileOpts[arg] = parts[1];
+    if (compileOpts[arg]) {
+      if (!Array.isArray(compileOpts[arg])) {
+        compileOpts[arg] = [compileOpts[arg]];
+      }
+      compileOpts[arg].push(parts[1])
+    } else {
+      compileOpts[arg] = parts[1];
+    }
   } else {
     flags[arg] = args.shift() || '';
   }
@@ -34,10 +41,6 @@ if (path.extname(srcPath) || !flags.main) {
 if (flags.main.indexOf('*') === -1 && !path.extname(flags.main)) {
   flags.main += flags.main[flags.main.length] === '/' ? '*' : '/';
 }
-
-console.log('executing sass compiler');
-console.log('flags: %j', flags);
-console.log('compile options: %j', compileOpts);
 
 gs.create(flags.main)
   .pipe(thru.obj(function (file, enc, cb) {

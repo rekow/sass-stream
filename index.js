@@ -64,7 +64,6 @@ module.exports = function (opts) {
         compileOpts = opts.compileOptions || {},
         transform;
 
-    console.log('OPTS: %j', opts);
 
     transform = through2.obj(function (file, enc, cb) {
         var ext, contents, scss;
@@ -105,7 +104,6 @@ module.exports = function (opts) {
         if (opts.compile === false) {
             proxy.end(scss);
         } else {
-            console.log('compiling scss source %s \n\n\nwith options %j', scss, compileOpts);
             compileOpts.data = scss;
             css = sass.renderSync(compileOpts);
 
