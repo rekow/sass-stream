@@ -1,9 +1,9 @@
 {
     "name": "sass-stream",
     "description": "Simple streaming sass compiler. Handles .scss and .sass - converts .sass files to .scss before compiling via node-sass",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "keywords": ["sass", "scss", "stream", "transpiler", "node-sass"],
-    "homepage": "https://github.com/davidrekow/sass-to-scss",
+    "homepage": "https://github.com/davidrekow/sass-stream",
     "author": {
         "name": "David Rekow",
         "email": "d@davidrekow.com",
@@ -11,9 +11,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/davidrekow/sass-to-scss.git"
+        "url": "https://github.com/davidrekow/sass-stream.git"
     },
-    "bugs": "https://github.com/davidrekow/sass-to-scss/issues",
+    "bugs": "https://github.com/davidrekow/sass-stream/issues",
     "license": "MIT",
     "dependencies": {
         "through2": "~0.5.1",
