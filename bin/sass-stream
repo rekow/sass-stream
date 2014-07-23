@@ -1,5 +1,52 @@
 #!/usr/bin/env node
 
-var args = process.argv.slice(1),
-    path = require('path'),
-    sass = require(path.resolve('../index'));
+var fs = require('fs'),
+  path = require('path'),
+  thru = require('through2'),
+  gs = require('glob-stream'),
+  sass = require(path.resolve('./index')),
+  args = process.argv.slice(2),
+  srcPath = args.shift(),
+  flags = {},
+  compileOpts = {},
+  trim = function (s) {
+    return s.replace(/^\s+/, '').replace(/\s+$/, '');
+  },
+  src, arg, val, parts;
+
+console.log('args: %j', args);
+
+while (args.length ) {
+  arg = trim(args.shift());
+  parts = arg.split('=');
+  arg = parts[0].slice(2);
+  if (parts.length === 2) {
+    compileOpts[arg] = parts[1];
+  } else {
+    flags[arg] = args.shift() || '';
+  }
+}
+
+if (path.extname(srcPath) || !flags.main) {
+  flags.main = srcPath;
+}
+
+if (flags.main.indexOf('*') === -1 && !path.extname(flags.main)) {
+  flags.main += flags.main[flags.main.length] === '/' ? '*' : '/';
+}
+
+console.log('executing sass compiler');
+console.log('flags: %j', flags);
+console.log('compile options: %j', compileOpts);
+
+gs.create(flags.main)
+  .pipe(thru.obj(function (file, enc, cb) {
+    file.contents = file.contents || fs.readFileSync(file.path);
+    file.relative = file.path.split('/').pop();
+    this.push(file);
+    cb();
+  }))
+  .pipe(sass({
+    output: flags.output,
+    compileOptions: compileOpts
+  }));

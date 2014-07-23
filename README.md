@@ -43,21 +43,21 @@ fs.createReadStream('path/to/sass/src')
 ```javascript
 var writableStream = sass(options);
 ```
-`options` is an optional object with four optional properties:
-- `main` - pass a path relative
+`options` is an optional object with three optional properties:
+- `main` - pass a path to indicate the main sass module.
 - `output` - a filename to additionally write output to.
 - `compileOptions` - a map of options to pass to [node-sass](https://www.npmjs.org/package/node-sass).
 
-Returns a `Writable` stream.
+Returns a `Writable` stream, can handle string or file stream input.
 
 ##Command Line API
 
 ```
-node_modules/.bin/sass-stream path/to/sass/or/scss --main main.sass --output path/to/css/directory --outputStyle=compressed...
+node_modules/.bin/sass-stream path/to/sass/or/scss --output path/to/css/directory [--main main.sass] [--outputStyle=compressed...]
 ```
-The main argument, the path to sass source, can be a directory or file. `--main` accepts a path (relative to the sass source path) to indicate the main sass file, while `--output` is the target compile directory.
+The main argument, the path to sass source, can be a directory or file. `--output` is the target compile directory. `--main` optionally accepts a path (relative to the sass source path) to indicate the main sass file. If the passed source is a file, this will override any passed value for `--main`.
 
-For compilation options, pass `optionName=value` - these will be passed directly to node-sass. For options with array values (e.g. `includePaths`) pass each possibility as a value and they will be gathered: `--includePaths=path/to/includes/dir --includePaths=path/to/other/includes/dir`. See the [node-sass](https://www.npmjs.org/package/node-sass) docs for more details on compile-time options.
+For compilation options, pass `optionName=value` - these will be passed directly to node-sass. For options with array values (e.g. `includePaths`) pass each possibility as a value and they will be gathered: `--includePaths=path/to/includes/dir --includePaths=path/to/other/includes/dir`.  See the [node-sass](https://www.npmjs.org/package/node-sass) docs for more details on compile-time options.
 
 ##TODO
 Sourcemaps.

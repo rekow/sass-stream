@@ -64,8 +64,10 @@ module.exports = function (opts) {
         compileOpts = opts.compileOptions || {},
         transform;
 
+    console.log('OPTS: %j', opts);
+
     transform = through2.obj(function (file, enc, cb) {
-        var moduleName, scss;
+        var ext, contents, scss;
 
         // Handle single-file input, e.g. fs.createReadStream
         if (file instanceof Buffer) {
@@ -84,27 +86,16 @@ module.exports = function (opts) {
             return cb();
         }
 
-        // Extract sass module name to use in resolving dependency graph
-        if (file.base && path.extname(file.relative) === '.sass') {
+        contents = file.contents.toString();
 
-            if (!opts.sassRoot) {
-                console.error('sassRoot must be provided when compiling sass source.');
+        if (file.relative) {
+            ext = path.extname(file.relative);
+            if (ext !== '.sass' && ext !== '.scss') {
+                return cb();
             }
-
-            moduleName = path.resolve(file.base, file.relative)
-                .split(path.delimiter(file.base))
-                .slice(opts.sassRoot.split(path.delimiter(opts.sassRoot)).length)
-                .join(path.delimiter(file.base))
-                .split('.')
-                .shift();
-
-            scss = toSCSS(file.contents.toString())
-
-            fileMap[moduleName] = 
-
+            scssFiles.push(ext === 'sass' || contents.indexOf('{') === -1 ?
+                toSCSS(contents) : contents);
         }
-
-        scssFiles.push(toSCSS(file.contents.toString()));
         cb();
 
     }, function (cb) {
@@ -114,6 +105,7 @@ module.exports = function (opts) {
         if (opts.compile === false) {
             proxy.end(scss);
         } else {
+            console.log('compiling scss source %s \n\n\nwith options %j', scss, compileOpts);
             compileOpts.data = scss;
             css = sass.renderSync(compileOpts);
 
