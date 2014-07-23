@@ -6,7 +6,7 @@ Add to your `devDependencies`:
 ```javascript
   "dependencies": {...},
   "devDependencies": {
-    "sass-stream": "~0.1.3"
+    "sass-stream": "~0.1.4"
   },
   ...
 ```
@@ -57,7 +57,7 @@ node_modules/.bin/sass-stream path/to/sass/or/scss --output path/to/css/file.css
 ```
 The main argument, the path to sass source, can be a directory or file. `--output` is the target output for compile. `--main` optionally accepts a path (relative to the sass source path) to indicate the main sass file. If the passed source is a file, this will override any passed value for `--main`.
 
-For compilation options, pass `optionName=value` - these will be passed directly to node-sass. For options with array values (e.g. `includePaths`) pass each possibility as a value and they will be gathered: `--includePaths=path/to/includes/dir --includePaths=path/to/other/includes/dir`.  See the [node-sass](https://www.npmjs.org/package/node-sass) docs for more details on compile-time options.
+For compilation options, pass `--optionName=value` - these will be passed directly to node-sass. For options with array values (e.g. `includePaths`) pass each possibility as a value and they will be gathered: `--includePaths=path/to/includes/dir --includePaths=path/to/other/includes/dir`.  See the [node-sass](https://www.npmjs.org/package/node-sass) docs for more details on compile-time options.
 
 ##TODO
 Sourcemaps.
