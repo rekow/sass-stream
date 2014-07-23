@@ -36,6 +36,8 @@ while (args.length ) {
 
 if (path.extname(srcPath) || !flags.main) {
   flags.main = srcPath;
+} else {
+  flags.main = path.resolve(srcPath, flags.main);
 }
 
 if (flags.main.indexOf('*') === -1 && !path.extname(flags.main)) {
