@@ -14,8 +14,6 @@ var fs = require('fs'),
   },
   src, arg, val, parts;
 
-console.log('args: %j', args);
-
 while (args.length ) {
   arg = trim(args.shift());
   parts = arg.split('=');
