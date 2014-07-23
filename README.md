@@ -6,7 +6,7 @@ Add to your `devDependencies`:
 ```javascript
   "dependencies": {...},
   "devDependencies": {
-    "sass-stream": "~0.1.5"
+    "sass-stream": "~0.1.6"
   },
   ...
 ```

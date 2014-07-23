@@ -14,7 +14,7 @@ var fs = require('fs'),
   },
   src, arg, val, parts;
 
-while (args.length ) {
+while (args.length) {
   arg = trim(args.shift());
   parts = arg.split('=');
   arg = parts[0].slice(2);
@@ -39,7 +39,7 @@ if (path.extname(srcPath) || !flags.main) {
 }
 
 if (flags.main.indexOf('*') === -1 && !path.extname(flags.main)) {
-  flags.main += flags.main[flags.main.length] === '/' ? '*' : '/';
+  flags.main += flags.main[flags.main.length] === '/' ? '*' : '/*';
 }
 
 gs.create(flags.main)

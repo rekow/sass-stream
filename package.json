@@ -1,7 +1,7 @@
 {
     "name": "sass-stream",
     "description": "Simple streaming sass compiler. Handles .scss and .sass - converts .sass files to .scss before compiling via node-sass",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "keywords": ["sass", "scss", "stream", "transpiler", "node-sass"],
     "homepage": "https://github.com/davidrekow/sass-stream",
     "author": {
