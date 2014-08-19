@@ -42,6 +42,10 @@ if (flags.main.indexOf('*') === -1 && !path.extname(flags.main)) {
   flags.main += flags.main[flags.main.length] === '/' ? '*' : '/*';
 }
 
+if (compileOpts.includePaths && !Array.isArray(compileOpts.includePaths)) {
+  compileOpts.includePaths = [compileOpts.includePaths];
+}
+
 gs.create(flags.main)
   .pipe(thru.obj(function (file, enc, cb) {
     file.contents = file.contents || fs.readFileSync(file.path);
